@@ -18,4 +18,6 @@ dependencyResolutionManagement {
 
 include(":server")
 include(":domain")
-include(":repository")
+include(":adapters:api")
+include(":adapters:persist")
+include(":adapters:remote")

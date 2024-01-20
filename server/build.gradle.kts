@@ -12,6 +12,9 @@ application {
 }
 
 dependencies {
+    implementation(projects.adapters.api)
+    implementation(projects.adapters.persist)
+    implementation(projects.adapters.remote)
     implementation(projects.domain)
     implementation(libs.logback)
     implementation(libs.ktor.server.core)

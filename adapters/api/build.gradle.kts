@@ -4,13 +4,6 @@ plugins {
     application
 }
 
-group = "dev.kevinsalazar.exchange.server"
-version = "1.0.0"
-application {
-    mainClass.set("dev.kevinsalazar.exchange.server.AppKt")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
-}
-
 dependencies {
     implementation(projects.domain)
     implementation(libs.logback)
