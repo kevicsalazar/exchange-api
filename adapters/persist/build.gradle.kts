@@ -10,6 +10,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.domain)
+            implementation(libs.koin.core)
             implementation(libs.logback)
         }
         commonTest.dependencies {
