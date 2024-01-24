@@ -7,7 +7,6 @@ object Users : Table() {
     val name = varchar("name", length = 50)
     val email = varchar("email", length = 50)
     val password = varchar("password", length = 50)
-    val age = integer("age")
 
     override val primaryKey = PrimaryKey(id)
 }
