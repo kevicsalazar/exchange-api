@@ -6,6 +6,7 @@ plugins {
 
 group = "dev.kevinsalazar.exchange.server"
 version = "1.0.0"
+
 application {
     mainClass.set("dev.kevinsalazar.exchange.server.AppKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
