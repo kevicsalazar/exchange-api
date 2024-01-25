@@ -7,5 +7,6 @@ import dev.kevinsalazar.exchange.domain.params.RegisterParams
 interface UserRepository {
     suspend fun register(params: RegisterParams): User?
     suspend fun login(params: LoginParams): User?
+    suspend fun findSaltByEmail(email: String): String?
     suspend fun findByEmail(email: String): User?
 }

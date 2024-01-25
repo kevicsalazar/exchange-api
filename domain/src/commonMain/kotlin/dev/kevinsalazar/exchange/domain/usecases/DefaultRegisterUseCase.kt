@@ -5,6 +5,7 @@ import dev.kevinsalazar.exchange.domain.errors.EmailAlreadyRegisterdException
 import dev.kevinsalazar.exchange.domain.params.RegisterParams
 import dev.kevinsalazar.exchange.domain.ports.driven.UserRepository
 import dev.kevinsalazar.exchange.domain.ports.driving.RegisterUseCase
+import dev.kevinsalazar.exchange.domain.security.generateHash
 
 internal class DefaultRegisterUseCase(
     private val userRepository: UserRepository
@@ -16,7 +17,11 @@ internal class DefaultRegisterUseCase(
                 throw EmailAlreadyRegisterdException()
             }
 
-            val user = userRepository.register(params)
+            val passwordHash = generateHash(params.password, params.salt)
+
+            val user = userRepository.register(
+                params.copy(password = passwordHash)
+            )
             requireNotNull(user)
 
             return Result.success(user)
