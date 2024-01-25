@@ -4,13 +4,19 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import dev.kevinsalazar.exchange.adapters.persist.tables.ExchangesTable
 import dev.kevinsalazar.exchange.adapters.persist.tables.UsersTable
+import dev.kevinsalazar.exchange.domain.ports.driven.ConfigProperties
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object DatabaseFactory {
-    fun initDB() {
-        val config = HikariConfig("/hikari.properties")
+
+object DatabaseConfig {
+    fun initialize(properties: ConfigProperties.Database) {
+        val config = HikariConfig().apply {
+            username = properties.username
+            password = properties.password
+            jdbcUrl = "jdbc:postgresql://${properties.serverName}:${properties.portNumber}/${properties.databaseName}"
+        }
         val ds = HikariDataSource(config)
         val db = Database.connect(ds)
         createTables(db)

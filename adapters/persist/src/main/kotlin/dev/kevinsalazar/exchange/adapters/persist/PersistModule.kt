@@ -1,6 +1,5 @@
 package dev.kevinsalazar.exchange.adapters.persist
 
-import dev.kevinsalazar.exchange.adapters.persist.config.DatabaseFactory
 import dev.kevinsalazar.exchange.adapters.persist.repository.DefaultExchangeRepository
 import dev.kevinsalazar.exchange.adapters.persist.repository.DefaultUserRepository
 import dev.kevinsalazar.exchange.domain.ports.driven.ExchangeRepository

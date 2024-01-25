@@ -7,13 +7,16 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-internal fun Routing.exchangeRoute() {
+internal fun Route.exchangeRoute() {
+
     val exchangeRateUseCase by inject<ExchangeRateUseCase>()
 
-    get("/exchange/rate") {
-        call.respond(
-            status = HttpStatusCode.OK,
-            message = exchangeRateUseCase.hashCode(),
-        )
+    route("exchange") {
+        get("/rate") {
+            call.respond(
+                status = HttpStatusCode.OK,
+                message = exchangeRateUseCase.hashCode(),
+            )
+        }
     }
 }

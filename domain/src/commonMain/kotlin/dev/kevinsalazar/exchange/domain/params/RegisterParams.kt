@@ -1,6 +1,6 @@
 package dev.kevinsalazar.exchange.domain.params
 
-import dev.kevinsalazar.exchange.domain.security.generateRandomSalt
+import dev.kevinsalazar.exchange.domain.utils.generateRandomSalt
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -20,6 +20,8 @@ dependencies {
     implementation(libs.koin.logger)
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
+    implementation(libs.ktor.server.auth)
+    implementation(libs.ktor.server.auth.jwt)
     implementation(libs.logback)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)

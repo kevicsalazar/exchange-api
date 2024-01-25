@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.domain)
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
+    implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
