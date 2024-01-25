@@ -1,6 +1,7 @@
 package dev.kevinsalazar.exchange.server
 
 import dev.kevinsalazar.exchange.adapters.api.config.config
+import dev.kevinsalazar.exchange.adapters.persist.config.DatabaseFactory
 import dev.kevinsalazar.exchange.adapters.persist.persistModule
 import dev.kevinsalazar.exchange.adapters.remote.remoteModule
 import dev.kevinsalazar.exchange.domain.domainModule
@@ -23,5 +24,6 @@ fun Application.main() {
             domainModule,
         )
     }
+    DatabaseFactory.initDB()
     config()
 }

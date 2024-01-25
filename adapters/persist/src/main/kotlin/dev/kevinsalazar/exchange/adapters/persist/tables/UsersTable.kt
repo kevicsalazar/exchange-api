@@ -2,7 +2,7 @@ package dev.kevinsalazar.exchange.adapters.persist.tables
 
 import org.jetbrains.exposed.sql.Table
 
-object Users : Table() {
+object UsersTable : Table(name = "users") {
     val id = integer("id").autoIncrement()
     val name = varchar("name", length = 50)
     val email = varchar("email", length = 50)

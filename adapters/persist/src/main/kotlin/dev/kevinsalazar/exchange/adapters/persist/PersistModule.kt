@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val persistModule = module {
 
-    single { DatabaseFactory.initDB() }
+    //single { DatabaseFactory.initDB() }
 
     factoryOf(::DefaultExchangeRepository) withOptions { bind<ExchangeRepository>() }
     factoryOf(::DefaultUserRepository) withOptions { bind<UserRepository>() }

@@ -3,7 +3,7 @@ package dev.kevinsalazar.exchange.adapters.persist.tables
 import dev.kevinsalazar.exchange.domain.enums.Status
 import org.jetbrains.exposed.sql.Table
 
-object Exchanges : Table() {
+object ExchangesTable : Table(name = "exchanges") {
     val id = integer("id").autoIncrement()
     val userId = varchar("user_id", length = 50)
     val status = enumeration<Status>("status")
