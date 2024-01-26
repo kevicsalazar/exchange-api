@@ -16,9 +16,7 @@ class AppConfigProperties(
     val database = object : ConfigProperties.Database {
         override val username = getConfigProperty("db.username")
         override val password = getConfigProperty("db.password")
-        override val databaseName = getConfigProperty("db.databaseName")
-        override val portNumber = getConfigProperty("db.portNumber")
-        override val serverName = getConfigProperty("db.serverName")
+        override val url = getConfigProperty("db.url")
     }
 
     private fun getConfigProperty(path: String): String {

@@ -15,7 +15,7 @@ object DatabaseConfig {
         val config = HikariConfig().apply {
             username = properties.username
             password = properties.password
-            jdbcUrl = "jdbc:postgresql://${properties.serverName}:${properties.portNumber}/${properties.databaseName}"
+            jdbcUrl = properties.url
         }
         val ds = HikariDataSource(config)
         val db = Database.connect(ds)

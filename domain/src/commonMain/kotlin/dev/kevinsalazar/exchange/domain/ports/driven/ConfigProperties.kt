@@ -10,8 +10,6 @@ sealed interface ConfigProperties {
     interface Database : ConfigProperties {
         val username: String
         val password: String
-        val databaseName: String
-        val portNumber: String
-        val serverName: String
+        val url: String
     }
 }
