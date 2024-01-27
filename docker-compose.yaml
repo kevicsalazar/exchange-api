@@ -6,7 +6,7 @@ services:
     volumes:
       - pg-volume:/var/lib/postgresql/data
     env_file:
-      - postgres.env
+      - server.env
     ports:
       - "5432:5432"
     healthcheck:
@@ -21,7 +21,7 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - postgres.env
+      - server.env
     depends_on:
       db:
         condition: service_healthy
