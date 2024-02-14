@@ -3,7 +3,7 @@ package dev.kevinsalazar.exchange.server.config
 import dev.kevinsalazar.exchange.adapters.api.di.apiModule
 import dev.kevinsalazar.exchange.adapters.persist.config.DatabaseConfig
 import dev.kevinsalazar.exchange.adapters.persist.persistModule
-import dev.kevinsalazar.exchange.adapters.remote.remoteModule
+import dev.kevinsalazar.exchange.adapters.remote.di.remoteModule
 import dev.kevinsalazar.exchange.domain.di.domainModule
 import dev.kevinsalazar.exchange.domain.ports.driven.ConfigProperties
 import dev.kevinsalazar.exchange.server.di.configModule

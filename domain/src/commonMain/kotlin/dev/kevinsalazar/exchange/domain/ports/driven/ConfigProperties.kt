@@ -12,4 +12,9 @@ sealed interface ConfigProperties {
         val password: String
         val url: String
     }
+
+    interface Remote : ConfigProperties {
+        val apiKey: String
+        val url: String
+    }
 }

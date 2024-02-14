@@ -19,6 +19,11 @@ class AppConfigProperties(
         override val url = getConfigProperty("db.url")
     }
 
+    val remote = object : ConfigProperties.Remote {
+        override val apiKey= getConfigProperty("remote.apiKey")
+        override val url= getConfigProperty("remote.url")
+    }
+
     private fun getConfigProperty(path: String): String {
         return application.environment.config.property(path).getString()
     }

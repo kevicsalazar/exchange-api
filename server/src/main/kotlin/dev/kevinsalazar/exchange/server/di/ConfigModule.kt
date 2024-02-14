@@ -9,4 +9,5 @@ import org.koin.dsl.module
 val configModule = module {
     single { AppConfigProperties.getInstance().jwt } withOptions { bind<ConfigProperties.Jwt>() }
     single { AppConfigProperties.getInstance().database } withOptions { bind<ConfigProperties.Database>() }
+    single { AppConfigProperties.getInstance().remote } withOptions { bind<ConfigProperties.Remote>() }
 }
