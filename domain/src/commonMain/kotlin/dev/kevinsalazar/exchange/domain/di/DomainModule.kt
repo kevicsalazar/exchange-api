@@ -1,4 +1,4 @@
-package dev.kevinsalazar.exchange.domain
+package dev.kevinsalazar.exchange.domain.di
 
 import dev.kevinsalazar.exchange.domain.ports.driving.ExchangeRateUseCase
 import dev.kevinsalazar.exchange.domain.ports.driving.ExchangeUseCase

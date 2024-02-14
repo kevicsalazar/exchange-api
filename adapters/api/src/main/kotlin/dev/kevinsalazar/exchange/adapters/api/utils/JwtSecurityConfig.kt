@@ -1,4 +1,4 @@
-package dev.kevinsalazar.exchange.server.utils
+package dev.kevinsalazar.exchange.adapters.api.utils
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
@@ -7,7 +7,7 @@ import dev.kevinsalazar.exchange.domain.ports.driven.ConfigProperties
 import dev.kevinsalazar.exchange.domain.ports.driven.SecurityConfig
 import java.time.Instant
 
-class JwtSecurityConfig(
+internal class JwtSecurityConfig(
     properties: ConfigProperties.Jwt,
 ) : SecurityConfig {
 
