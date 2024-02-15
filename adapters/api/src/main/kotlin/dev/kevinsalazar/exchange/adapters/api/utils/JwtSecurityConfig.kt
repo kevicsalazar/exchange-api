@@ -33,7 +33,7 @@ internal class JwtSecurityConfig(
 
     companion object {
         const val CLAIM = "claim"
-        const val DURATION: Long = 1 * 60
+        const val DURATION: Long = 1 * 60 * 5
     }
 
 }

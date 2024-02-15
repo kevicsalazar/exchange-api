@@ -9,12 +9,15 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.json.Json
 import org.koin.ktor.ext.inject
 
 
 fun Application.configureRoutes() {
     install(ContentNegotiation) {
-        json()
+        json(Json {
+            encodeDefaults = false
+        })
     }
     routing {
         authRoute()

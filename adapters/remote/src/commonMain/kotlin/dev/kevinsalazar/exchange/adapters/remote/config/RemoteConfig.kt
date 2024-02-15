@@ -23,6 +23,7 @@ internal class RemoteConfig(
                 prettyPrint = true
                 isLenient = true
                 ignoreUnknownKeys = true
+                encodeDefaults = false
             })
         }
         install(Logging) {

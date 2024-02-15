@@ -1,6 +1,12 @@
 package dev.kevinsalazar.exchange.domain.entities
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Currency(
-    val code: String,
-    val format: String
+    val id: Int,
+    val rank: Int? = null,
+    val name: String,
+    val symbol: String,
+    val sign: String? = null
 )

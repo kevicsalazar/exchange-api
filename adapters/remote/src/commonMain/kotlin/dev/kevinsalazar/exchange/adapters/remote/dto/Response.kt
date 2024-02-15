@@ -11,11 +11,11 @@ class Response<T>(
 ) {
     @Serializable
     data class Status(
-        @SerialName("timestamp") val timestamp: String,
-        @SerialName("error_code") val errorCode: String,
+        val timestamp: String,
+        @SerialName("error_code") val errorCode: Int,
         @SerialName("error_message") val errorMessage: String?,
-        @SerialName("elapsed") val elapsed: String,
-        @SerialName("credit_count") val creditCount: String,
-        @SerialName("notice") val notice: String?,
+        val elapsed: Int,
+        @SerialName("credit_count") val creditCount: Int,
+        val notice: String?
     )
 }
