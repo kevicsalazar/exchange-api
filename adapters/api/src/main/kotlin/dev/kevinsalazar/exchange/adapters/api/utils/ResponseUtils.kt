@@ -4,6 +4,7 @@ import dev.kevinsalazar.exchange.adapters.api.model.Error
 import dev.kevinsalazar.exchange.domain.errors.UnauthorizedException
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.response.*
 
 private inline fun <reified T> Result<T>.toResponse(): Pair<HttpStatusCode, Any> {

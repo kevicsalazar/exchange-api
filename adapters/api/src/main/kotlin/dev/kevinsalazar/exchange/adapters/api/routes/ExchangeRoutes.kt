@@ -1,33 +1,23 @@
 package dev.kevinsalazar.exchange.adapters.api.routes
 
 import dev.kevinsalazar.exchange.adapters.api.utils.respond
-import dev.kevinsalazar.exchange.domain.ports.driving.ConvertCurrencyUseCase
-import dev.kevinsalazar.exchange.domain.ports.driving.ListCurrenciesUseCase
+import dev.kevinsalazar.exchange.domain.params.SwapParams
+import dev.kevinsalazar.exchange.domain.ports.driving.SwapUseCase
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
 internal fun Route.exchangeRoute() {
 
-    val listCurrenciesUseCase by inject<ListCurrenciesUseCase>()
-    val convertCurrencyUseCase by inject<ConvertCurrencyUseCase>()
+    val swapUseCase by inject<SwapUseCase>()
 
     route("exchange") {
-        get("/currency/list") {
-            val result = listCurrenciesUseCase.execute()
-            call.respond(result = result)
-        }
-        get("/currency/convert") {
-
-            val amount = call.request.queryParameters["amount"]?.toFloat()
-            val from = call.request.queryParameters["from"]?.toInt()
-            val to = call.request.queryParameters["to"]?.toInt()
-
-            requireNotNull(amount) { "amount is required" }
-            requireNotNull(from) { "from is required" }
-            requireNotNull(to) { "to is required" }
-
-            val result = convertCurrencyUseCase.execute(amount, from, to)
+        get("/swap") {
+            val userId = requireNotNull(call.principal<UserIdPrincipal>()?.name)
+            val params = call.receive<SwapParams>()
+            val result = swapUseCase.execute(userId, params)
             call.respond(result = result)
         }
     }

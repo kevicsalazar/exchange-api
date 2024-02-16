@@ -2,7 +2,7 @@ package dev.kevinsalazar.exchange.adapters.persist.config
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import dev.kevinsalazar.exchange.adapters.persist.tables.ExchangesTable
+import dev.kevinsalazar.exchange.adapters.persist.tables.TransactionTable
 import dev.kevinsalazar.exchange.adapters.persist.tables.UsersTable
 import dev.kevinsalazar.exchange.domain.ports.driven.ConfigProperties
 import org.jetbrains.exposed.sql.Database
@@ -25,7 +25,7 @@ object DatabaseConfig {
     private fun createTables(db: Database) {
         transaction(db) {
             SchemaUtils.create(UsersTable)
-            SchemaUtils.create(ExchangesTable)
+            SchemaUtils.create(TransactionTable)
         }
     }
 }

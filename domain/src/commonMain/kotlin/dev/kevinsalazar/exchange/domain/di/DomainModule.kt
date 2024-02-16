@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val domainModule = module {
     factoryOf(::DefaultConvertCurrencyUseCase) withOptions { bind<ConvertCurrencyUseCase>() }
-    factoryOf(::DefaultExchangeUseCase) withOptions { bind<ExchangeUseCase>() }
+    factoryOf(::DefaultSwapUseCase) withOptions { bind<SwapUseCase>() }
     factoryOf(::DefaultListCurrenciesUseCase) withOptions { bind<ListCurrenciesUseCase>() }
     factoryOf(::DefaultLoginUseCase) withOptions { bind<LoginUseCase>() }
     factoryOf(::DefaultRegisterUseCase) withOptions { bind<RegisterUseCase>() }

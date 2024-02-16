@@ -4,12 +4,12 @@ import dev.kevinsalazar.exchange.domain.enums.Status
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Exchange(
+data class Transaction(
     val id: String,
-    val userId: String,
     val status: Status,
-    val sentCurrency: Currency,
+    val sentCurrencyId: Int,
     val sentAmount: Float,
-    val receivedCurrency: Currency,
-    val receivedAmount: Float
+    val receivedCurrencyId: Int,
+    val receivedAmount: Float,
+    val created: String
 )
