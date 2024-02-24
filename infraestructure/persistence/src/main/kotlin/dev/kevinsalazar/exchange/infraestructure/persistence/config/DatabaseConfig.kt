@@ -3,7 +3,7 @@ package dev.kevinsalazar.exchange.infraestructure.persistence.config
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import dev.kevinsalazar.exchange.domain.ports.driven.ConfigProperties
-import dev.kevinsalazar.exchange.infraestructure.persistence.tables.FundsTable
+import dev.kevinsalazar.exchange.infraestructure.persistence.tables.BalanceTable
 import dev.kevinsalazar.exchange.infraestructure.persistence.tables.TransactionTable
 import dev.kevinsalazar.exchange.infraestructure.persistence.tables.UsersTable
 import org.jetbrains.exposed.sql.Database
@@ -29,7 +29,7 @@ class DatabaseConfig(
         transaction(db) {
             SchemaUtils.create(UsersTable)
             SchemaUtils.create(TransactionTable)
-            SchemaUtils.create(FundsTable)
+            SchemaUtils.create(BalanceTable)
         }
     }
 }

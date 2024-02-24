@@ -19,6 +19,7 @@ fun Application.configureRoutes() {
     install(ContentNegotiation) {
         json(Json {
             encodeDefaults = false
+            ignoreUnknownKeys = true
         })
     }
     routing {
@@ -40,7 +41,7 @@ fun Application.configureAuthentication() {
             verifier(jwtSecurityConfig.verifier)
             validate {
                 val claim = it.payload.getClaim(JwtSecurityConfig.CLAIM)
-                if (claim != null) UserIdPrincipal(claim.toString()) else null
+                if (claim != null) UserIdPrincipal(claim.asString()) else null
             }
         }
     }

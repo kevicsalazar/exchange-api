@@ -22,35 +22,35 @@ internal class DefaultSwapUseCase(
             id = generateUUID(),
             userId = userId,
             status = Status.Success,
-            sentCurrencyId = request.sender.currencyId,
-            sentAmount = request.sender.amount,
-            receivedCurrencyId = request.recipient.currencyId,
-            receivedAmount = request.recipient.amount,
+            sentCurrencyId = request.send.currencyId,
+            sentAmount = request.send.amount,
+            receivedCurrencyId = request.receive.currencyId,
+            receivedAmount = request.receive.amount,
             created = getTimeStamp()
         )
 
         try {
-            val senderBalance = balanceRepository.findBalance(userId, request.sender.currencyId)
+            val senderBalance = balanceRepository.findBalance(userId, request.send.currencyId)
 
-            if (senderBalance != null && senderBalance.amount >= request.sender.amount) {
+            if (senderBalance != null && senderBalance.amount >= request.send.amount) {
 
                 val senderNewBalance = senderBalance.copy(
-                    amount = senderBalance.amount - request.sender.amount
+                    amount = senderBalance.amount - request.send.amount
                 )
 
                 balanceRepository.updateBalance(senderNewBalance)
 
-                val recipientBalance = balanceRepository.findBalance(userId, request.recipient.currencyId)
+                val recipientBalance = balanceRepository.findBalance(userId, request.receive.currencyId)
 
                 val recipientNewBalance = recipientBalance?.let {
                     it.copy(
-                        amount = it.amount + request.recipient.amount
+                        amount = it.amount + request.receive.amount
                     )
                 } ?: Balance(
                     id = generateUUID(),
                     userId = userId,
-                    amount = request.recipient.amount,
-                    currencyId = request.recipient.currencyId
+                    amount = request.receive.amount,
+                    currencyId = request.receive.currencyId
                 )
 
                 balanceRepository.updateBalance(recipientNewBalance)

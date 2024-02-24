@@ -21,8 +21,8 @@ class DefaultWithdrawalUseCase(
             id = generateUUID(),
             userId = userId,
             status = Status.Success,
-            receivedCurrencyId = request.currencyId,
-            receivedAmount = request.amount,
+            sentCurrencyId = request.currencyId,
+            sentAmount = request.amount,
             created = getTimeStamp()
         )
 

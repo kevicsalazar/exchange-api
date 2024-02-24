@@ -5,8 +5,8 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.timestamp
 
 object TransactionTable : Table(name = "transactions") {
-    val id = varchar("id", length = 36)
-    val userId = reference("film_id", UsersTable.id)
+    val id = varchar("id", length = 64)
+    val userId = reference("user_id", UsersTable.id)
     val status = enumeration<Status>("status")
     val sentCurrencyId = integer("sent_currency_id").nullable()
     val sentAmount = float("sent_amount").nullable()
