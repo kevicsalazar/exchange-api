@@ -10,6 +10,7 @@ import org.koin.dsl.module
 val applicationModule = module {
     factoryOf(::DefaultConvertUseCase) withOptions { bind<ConvertUseCase>() }
     factoryOf(::DefaultDepositUseCase) withOptions { bind<DepositUseCase>() }
+    factoryOf(::DefaultListBalancesUseCase) withOptions { bind<ListBalancesUseCase>() }
     factoryOf(::DefaultSwapUseCase) withOptions { bind<SwapUseCase>() }
     factoryOf(::DefaultListCurrenciesUseCase) withOptions { bind<ListCurrenciesUseCase>() }
     factoryOf(::DefaultListTransactionsUseCase) withOptions { bind<ListTransactionsUseCase>() }

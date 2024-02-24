@@ -3,6 +3,7 @@ package dev.kevinsalazar.exchange.infraestructure.api.routes
 import dev.kevinsalazar.exchange.domain.payload.request.DepositRequest
 import dev.kevinsalazar.exchange.domain.payload.request.WithdrawalRequest
 import dev.kevinsalazar.exchange.domain.ports.driving.DepositUseCase
+import dev.kevinsalazar.exchange.domain.ports.driving.ListBalancesUseCase
 import dev.kevinsalazar.exchange.domain.ports.driving.ListTransactionsUseCase
 import dev.kevinsalazar.exchange.domain.ports.driving.WithdrawalUseCase
 import dev.kevinsalazar.exchange.infraestructure.api.utils.respond
@@ -17,6 +18,7 @@ internal fun Route.userRoute() {
     val depositUseCase by inject<DepositUseCase>()
     val withdrawalUseCase by inject<WithdrawalUseCase>()
     val listTransactionsUseCase by inject<ListTransactionsUseCase>()
+    val listBalancesUseCase by inject<ListBalancesUseCase>()
 
     route("user") {
         post("/deposit") {
@@ -34,6 +36,11 @@ internal fun Route.userRoute() {
         get("/transactions") {
             val userId = requireNotNull(call.principal<UserIdPrincipal>()?.name)
             val result = listTransactionsUseCase.execute(userId)
+            call.respond(result = result)
+        }
+        get("/balances") {
+            val userId = requireNotNull(call.principal<UserIdPrincipal>()?.name)
+            val result = listBalancesUseCase.execute(userId)
             call.respond(result = result)
         }
     }

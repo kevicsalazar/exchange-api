@@ -3,7 +3,7 @@ package dev.kevinsalazar.exchange.infraestructure.persistence.tables
 import org.jetbrains.exposed.sql.Table
 
 object UsersTable : Table(name = "users") {
-    val id = varchar("id", 64)
+    val id = varchar("id", 36)
     val name = varchar("name", length = 64)
     val email = varchar("email", length = 64)
     val password = varchar("password", length = 64)
