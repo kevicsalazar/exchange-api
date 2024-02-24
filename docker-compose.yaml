@@ -2,7 +2,7 @@ services:
   db:
     image: arm64v8/postgres
     restart: always
-    container_name: backend-db
+    container_name: exchange-db
     volumes:
       - pg-volume:/var/lib/postgresql/data
     env_file:
@@ -16,7 +16,7 @@ services:
   ktor:
     build: .
     platform: linux/amd64
-    container_name: backend-ktor
+    container_name: exchange-api
     restart: always
     ports:
       - "8080:8080"

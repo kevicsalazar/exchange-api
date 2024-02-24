@@ -13,9 +13,10 @@ application {
 }
 
 dependencies {
-    implementation(projects.adapters.api)
-    implementation(projects.adapters.persist)
-    implementation(projects.adapters.remote)
+    implementation(projects.infraestructure.api)
+    implementation(projects.infraestructure.persist)
+    implementation(projects.infraestructure.remote)
+    implementation(projects.application)
     implementation(projects.domain)
     implementation(libs.koin.logger)
     implementation(libs.koin.core)
