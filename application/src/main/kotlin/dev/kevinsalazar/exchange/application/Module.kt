@@ -14,4 +14,5 @@ val applicationModule = module {
     factoryOf(::DefaultListCurrenciesUseCase) withOptions { bind<ListCurrenciesUseCase>() }
     factoryOf(::DefaultLoginUseCase) withOptions { bind<LoginUseCase>() }
     factoryOf(::DefaultRegisterUseCase) withOptions { bind<RegisterUseCase>() }
+    factoryOf(::DefaultWithdrawalUseCase) withOptions { bind<WithdrawalUseCase>() }
 }
