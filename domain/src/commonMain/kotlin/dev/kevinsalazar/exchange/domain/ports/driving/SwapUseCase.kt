@@ -4,5 +4,5 @@ import dev.kevinsalazar.exchange.domain.entities.Transaction
 import dev.kevinsalazar.exchange.domain.payload.request.SwapRequest
 
 interface SwapUseCase {
-    suspend fun execute(userId: String, params: SwapRequest): Result<Transaction>
+    suspend fun execute(userId: String, request: SwapRequest): Result<Transaction>
 }

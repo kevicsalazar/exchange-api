@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SwapRequest(
     val userId: String,
-    val from: Item,
-    val to: Item
+    val sender: Item,
+    val recipient: Item
 ) {
     @Serializable
     data class Item(

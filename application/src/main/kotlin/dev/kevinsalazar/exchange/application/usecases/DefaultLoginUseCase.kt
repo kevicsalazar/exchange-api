@@ -11,13 +11,13 @@ internal class DefaultLoginUseCase(
     private val userRepository: UserRepository,
     private val securityConfig: SecurityConfig
 ) : LoginUseCase {
-    override suspend fun execute(params: LoginRequest): Result<User> {
+    override suspend fun execute(request: LoginRequest): Result<User> {
         try {
-            val salt = userRepository.findSaltByEmail(params.email)
+            val salt = userRepository.findSaltByEmail(request.email)
             requireNotNull(salt)
 
-            val password = generateHash(params.password, salt)
-            val user = userRepository.login(params.copy(password = password))
+            val password = generateHash(request.password, salt)
+            val user = userRepository.login(request.copy(password = password))
             requireNotNull(user)
 
             user.authToken = securityConfig.createToken(user.id)

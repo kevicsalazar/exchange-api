@@ -3,6 +3,7 @@ package dev.kevinsalazar.exchange.infraestructure.api.config
 import dev.kevinsalazar.exchange.infraestructure.api.routes.authRoute
 import dev.kevinsalazar.exchange.infraestructure.api.routes.currencyRoute
 import dev.kevinsalazar.exchange.infraestructure.api.routes.exchangeRoute
+import dev.kevinsalazar.exchange.infraestructure.api.routes.userRoute
 import dev.kevinsalazar.exchange.infraestructure.api.utils.JwtSecurityConfig
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -25,6 +26,7 @@ fun Application.configureRoutes() {
         authenticate {
             currencyRoute()
             exchangeRoute()
+            userRoute()
         }
     }
 }

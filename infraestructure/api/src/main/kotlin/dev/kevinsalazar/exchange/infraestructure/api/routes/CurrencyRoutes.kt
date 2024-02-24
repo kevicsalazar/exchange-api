@@ -1,7 +1,7 @@
 package dev.kevinsalazar.exchange.infraestructure.api.routes
 
 import dev.kevinsalazar.exchange.infraestructure.api.utils.respond
-import dev.kevinsalazar.exchange.domain.ports.driving.ConvertCurrencyUseCase
+import dev.kevinsalazar.exchange.domain.ports.driving.ConvertUseCase
 import dev.kevinsalazar.exchange.domain.ports.driving.ListCurrenciesUseCase
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
@@ -10,7 +10,7 @@ import org.koin.ktor.ext.inject
 internal fun Route.currencyRoute() {
 
     val listCurrenciesUseCase by inject<ListCurrenciesUseCase>()
-    val convertCurrencyUseCase by inject<ConvertCurrencyUseCase>()
+    val convertUseCase by inject<ConvertUseCase>()
 
     route("currency") {
         get("/list") {
@@ -27,7 +27,7 @@ internal fun Route.currencyRoute() {
             requireNotNull(from) { "from is required" }
             requireNotNull(to) { "to is required" }
 
-            val result = convertCurrencyUseCase.execute(amount, from, to)
+            val result = convertUseCase.execute(amount, from, to)
             call.respond(result = result)
         }
     }

@@ -1,50 +1,59 @@
 package dev.kevinsalazar.exchange.application.usecases
 
+import dev.kevinsalazar.exchange.application.utils.generateUUID
+import dev.kevinsalazar.exchange.domain.entities.Balance
 import dev.kevinsalazar.exchange.domain.entities.Transaction
 import dev.kevinsalazar.exchange.domain.enums.Status
 import dev.kevinsalazar.exchange.domain.errors.InsufficientFundsException
 import dev.kevinsalazar.exchange.domain.payload.request.SwapRequest
-import dev.kevinsalazar.exchange.domain.ports.driven.FundsRepository
+import dev.kevinsalazar.exchange.domain.ports.driven.BalanceRepository
 import dev.kevinsalazar.exchange.domain.ports.driven.TransactionRepository
 import dev.kevinsalazar.exchange.domain.ports.driving.SwapUseCase
-import dev.kevinsalazar.exchange.application.utils.generateUUID
 import dev.kevinsalazar.exchange.domain.utils.getTimeStamp
 
 internal class DefaultSwapUseCase(
-    private val fundsRepository: FundsRepository,
+    private val balanceRepository: BalanceRepository,
     private val transactionRepository: TransactionRepository
 ) : SwapUseCase {
 
-    override suspend fun execute(userId: String, params: SwapRequest): Result<Transaction> {
+    override suspend fun execute(userId: String, request: SwapRequest): Result<Transaction> {
 
         val transaction = Transaction(
             id = generateUUID(),
             userId = userId,
             status = Status.Success,
-            sentCurrencyId = params.from.currencyId,
-            sentAmount = params.from.amount,
-            receivedCurrencyId = params.to.currencyId,
-            receivedAmount = params.to.amount,
+            sentCurrencyId = request.sender.currencyId,
+            sentAmount = request.sender.amount,
+            receivedCurrencyId = request.recipient.currencyId,
+            receivedAmount = request.recipient.amount,
             created = getTimeStamp()
         )
 
         try {
-            val fromFunds = fundsRepository.findfunds(userId, params.from.currencyId)
-            if (fromFunds >= params.from.amount) {
+            val senderBalance = balanceRepository.findBalance(userId, request.sender.currencyId)
 
-                fundsRepository.updateFunds(
-                    userId = userId,
-                    currencyId = params.from.currencyId,
-                    amount = fromFunds - params.from.amount
+            if (senderBalance != null && senderBalance.amount >= request.sender.amount) {
+
+                val senderNewBalance = senderBalance.copy(
+                    amount = senderBalance.amount - request.sender.amount
                 )
 
-                val toFunds = fundsRepository.findfunds(userId, params.to.currencyId)
+                balanceRepository.updateBalance(senderNewBalance)
 
-                fundsRepository.updateFunds(
+                val recipientBalance = balanceRepository.findBalance(userId, request.recipient.currencyId)
+
+                val recipientNewBalance = recipientBalance?.let {
+                    it.copy(
+                        amount = it.amount + request.recipient.amount
+                    )
+                } ?: Balance(
+                    id = generateUUID(),
                     userId = userId,
-                    currencyId = params.to.currencyId,
-                    amount = toFunds + params.to.amount
+                    amount = request.recipient.amount,
+                    currencyId = request.recipient.currencyId
                 )
+
+                balanceRepository.updateBalance(recipientNewBalance)
 
                 val savedTransaction = transactionRepository.save(transaction)
 
@@ -52,14 +61,14 @@ internal class DefaultSwapUseCase(
 
                 return Result.success(transaction)
             } else {
-                transactionRepository.save(
-                    transaction.copy(
-                        status = Status.Error
-                    )
-                )
                 throw InsufficientFundsException()
             }
         } catch (e: Exception) {
+            transactionRepository.save(
+                transaction.copy(
+                    status = Status.Error
+                )
+            )
             return Result.failure(e)
         }
     }

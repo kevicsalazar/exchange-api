@@ -13,15 +13,15 @@ internal class DefaultRegisterUseCase(
     private val userRepository: UserRepository,
     private val securityConfig: SecurityConfig
 ) : RegisterUseCase {
-    override suspend fun execute(params: RegisterRequest): Result<User> {
+    override suspend fun execute(request: RegisterRequest): Result<User> {
         try {
 
-            if (userRepository.findByEmail(params.email) != null) {
+            if (userRepository.findByEmail(request.email) != null) {
                 throw EmailAlreadyRegisterdException()
             }
 
-            val password = generateHash(params.password, params.salt)
-            val user = userRepository.register(params.copy(
+            val password = generateHash(request.password, request.salt)
+            val user = userRepository.register(request.copy(
                 id = generateUUID(),
                 password = password
             ))

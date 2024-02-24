@@ -2,11 +2,11 @@ package dev.kevinsalazar.exchange.application.usecases
 
 import dev.kevinsalazar.exchange.domain.entities.Convertion
 import dev.kevinsalazar.exchange.domain.ports.driven.CurrenciesRepository
-import dev.kevinsalazar.exchange.domain.ports.driving.ConvertCurrencyUseCase
+import dev.kevinsalazar.exchange.domain.ports.driving.ConvertUseCase
 
-class DefaultConvertCurrencyUseCase(
+class DefaultConvertUseCase(
     private val currenciesRepository: CurrenciesRepository
-) : ConvertCurrencyUseCase {
+) : ConvertUseCase {
     override suspend fun execute(amount: Float, from: Int, to: Int): Result<Convertion> {
         try {
             val data = currenciesRepository.convert(amount, from, to)

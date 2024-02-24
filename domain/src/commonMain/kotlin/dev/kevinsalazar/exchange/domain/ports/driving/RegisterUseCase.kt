@@ -4,5 +4,5 @@ import dev.kevinsalazar.exchange.domain.entities.User
 import dev.kevinsalazar.exchange.domain.payload.request.RegisterRequest
 
 interface RegisterUseCase {
-    suspend fun execute(params: RegisterRequest): Result<User>
+    suspend fun execute(request: RegisterRequest): Result<User>
 }
