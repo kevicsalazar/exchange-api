@@ -3,7 +3,7 @@ package dev.kevinsalazar.exchange.server
 import dev.kevinsalazar.exchange.infraestructure.api.apiModule
 import dev.kevinsalazar.exchange.infraestructure.api.config.configureAuthentication
 import dev.kevinsalazar.exchange.infraestructure.api.config.configureRoutes
-import dev.kevinsalazar.exchange.infraestructure.persist.persistModule
+import dev.kevinsalazar.exchange.infraestructure.persistence.persistModule
 import dev.kevinsalazar.exchange.infraestructure.remote.remoteModule
 import dev.kevinsalazar.exchange.application.applicationModule
 import io.ktor.server.application.*
