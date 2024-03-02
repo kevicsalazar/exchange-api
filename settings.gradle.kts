@@ -8,6 +8,9 @@ pluginManagement {
         mavenCentral()
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+}
 
 dependencyResolutionManagement {
     repositories {
@@ -22,3 +25,5 @@ include(":application")
 include(":infraestructure:api")
 include(":infraestructure:persistence")
 include(":infraestructure:remote")
+include("infraestructure:events")
+findProject(":infraestructure:events")?.name = "events"

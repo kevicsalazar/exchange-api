@@ -13,6 +13,8 @@ kotest = "5.8.0"
 ksp = "1.9.21-1.0.15"
 mockative = "2.0.1"
 coroutines = "1.8.0"
+aws-sdk = "1.0.30"
+aws-smithy = "0.30.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -63,6 +65,11 @@ kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref 
 
 mockative = { module = "io.mockative:mockative", version.ref = "mockative" }
 mockative-processor = { module = "io.mockative:mockative-processor", version.ref = "mockative" }
+
+aws-sqs = { module = "aws.sdk.kotlin:sqs", version.ref = "aws-sdk" }
+aws-secretsmanager = { module = "aws.sdk.kotlin:secretsmanager", version.ref = "aws-sdk" }
+aws-okhttp = { module = "aws.smithy.kotlin:http-client-engine-okhttp", version.ref = "aws-smithy" }
+aws-crt = { module = "aws.smithy.kotlin:http-client-engine-crt", version.ref = "aws-smithy" }
 
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

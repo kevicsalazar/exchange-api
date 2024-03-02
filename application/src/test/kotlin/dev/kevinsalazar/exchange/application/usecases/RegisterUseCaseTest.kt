@@ -7,6 +7,7 @@ import dev.kevinsalazar.exchange.domain.errors.EmailAlreadyRegisterdException
 import dev.kevinsalazar.exchange.domain.payload.request.RegisterRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.SecurityConfig
 import dev.kevinsalazar.exchange.domain.ports.driven.UserRepository
+import dev.kevinsalazar.exchange.domain.ports.driving.events.EventBus
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
@@ -20,7 +21,10 @@ class RegisterUseCaseTest : StringSpec() {
     @Mock
     val userRepository = mock(classOf<UserRepository>())
 
-    private val useCase by lazy { DefaultRegisterUseCase(userRepository, securityConfig) }
+    @Mock
+    val eventBus = mock(classOf<EventBus>())
+
+    private val useCase by lazy { DefaultRegisterUseCase(userRepository, securityConfig, eventBus) }
 
     init {
         "GIVEN RegisterParams WHEN execute THEN return User" {
