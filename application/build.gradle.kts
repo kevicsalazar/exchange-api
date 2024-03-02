@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation(projects.domain)
     implementation(libs.koin.core)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.kotest.engine)

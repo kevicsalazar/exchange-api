@@ -5,15 +5,18 @@ import dev.kevinsalazar.exchange.domain.entities.Balance
 import dev.kevinsalazar.exchange.domain.entities.Transaction
 import dev.kevinsalazar.exchange.domain.enums.Status
 import dev.kevinsalazar.exchange.domain.errors.InsufficientFundsException
+import dev.kevinsalazar.exchange.domain.events.SuccessfulSwapEvent
 import dev.kevinsalazar.exchange.domain.payload.request.SwapRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.BalanceRepository
 import dev.kevinsalazar.exchange.domain.ports.driven.TransactionRepository
 import dev.kevinsalazar.exchange.domain.ports.driving.SwapUseCase
+import dev.kevinsalazar.exchange.domain.ports.driving.events.EventBus
 import dev.kevinsalazar.exchange.domain.utils.getTimeStamp
 
 internal class DefaultSwapUseCase(
     private val balanceRepository: BalanceRepository,
-    private val transactionRepository: TransactionRepository
+    private val transactionRepository: TransactionRepository,
+    private val eventBus: EventBus
 ) : SwapUseCase {
 
     override suspend fun execute(userId: String, request: SwapRequest): Result<Transaction> {
@@ -32,37 +35,39 @@ internal class DefaultSwapUseCase(
         try {
             val senderBalance = balanceRepository.findBalance(userId, request.send.currencyId)
 
-            if (senderBalance != null && senderBalance.amount >= request.send.amount) {
-
-                val senderNewBalance = senderBalance.copy(
-                    amount = senderBalance.amount - request.send.amount
-                )
-
-                balanceRepository.updateBalance(senderNewBalance)
-
-                val recipientBalance = balanceRepository.findBalance(userId, request.receive.currencyId)
-
-                val recipientNewBalance = recipientBalance?.let {
-                    it.copy(
-                        amount = it.amount + request.receive.amount
-                    )
-                } ?: Balance(
-                    id = generateUUID(),
-                    userId = userId,
-                    amount = request.receive.amount,
-                    currencyId = request.receive.currencyId
-                )
-
-                balanceRepository.updateBalance(recipientNewBalance)
-
-                val savedTransaction = transactionRepository.save(transaction)
-
-                requireNotNull(savedTransaction) { "Unable to save transaction" }
-
-                return Result.success(transaction)
-            } else {
+            if (senderBalance == null || senderBalance.amount < request.send.amount) {
                 throw InsufficientFundsException()
             }
+
+            val senderNewBalance = senderBalance.copy(
+                amount = senderBalance.amount - request.send.amount
+            )
+
+            balanceRepository.updateBalance(senderNewBalance)
+
+            val recipientBalance = balanceRepository.findBalance(userId, request.receive.currencyId)
+
+            val recipientNewBalance = recipientBalance?.let {
+                it.copy(
+                    amount = it.amount + request.receive.amount
+                )
+            } ?: Balance(
+                id = generateUUID(),
+                userId = userId,
+                amount = request.receive.amount,
+                currencyId = request.receive.currencyId
+            )
+
+            balanceRepository.updateBalance(recipientNewBalance)
+
+            val savedTransaction = transactionRepository.save(transaction)
+
+            requireNotNull(savedTransaction) { "Unable to save transaction" }
+
+            publishEvent(userId, savedTransaction.id)
+
+            return Result.success(transaction)
+
         } catch (e: Exception) {
             transactionRepository.save(
                 transaction.copy(
@@ -71,6 +76,15 @@ internal class DefaultSwapUseCase(
             )
             return Result.failure(e)
         }
+    }
+
+    private suspend fun publishEvent(userId: String, transactionId: String) {
+        val event = SuccessfulSwapEvent(
+            userId = userId,
+            transactionId = transactionId
+        )
+
+        eventBus.publish(event)
     }
 
 }

@@ -6,6 +6,7 @@ import dev.kevinsalazar.exchange.infraestructure.api.config.configureRoutes
 import dev.kevinsalazar.exchange.infraestructure.persistence.persistModule
 import dev.kevinsalazar.exchange.infraestructure.remote.remoteModule
 import dev.kevinsalazar.exchange.application.applicationModule
+import dev.kevinsalazar.exchange.infraestructure.api.config.configureEventConsumer
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
 import org.koin.core.logger.Level
@@ -20,6 +21,7 @@ fun main(args: Array<String>) {
 fun Application.main() {
     configureKoin()
     configureAuthentication()
+    configureEventConsumer()
     configureRoutes()
 }
 

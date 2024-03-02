@@ -1,5 +1,6 @@
 package dev.kevinsalazar.exchange.infraestructure.api.config
 
+import dev.kevinsalazar.exchange.domain.ports.driving.events.EventConsumer
 import dev.kevinsalazar.exchange.infraestructure.api.routes.authRoute
 import dev.kevinsalazar.exchange.infraestructure.api.routes.currencyRoute
 import dev.kevinsalazar.exchange.infraestructure.api.routes.exchangeRoute
@@ -44,5 +45,15 @@ fun Application.configureAuthentication() {
                 if (claim != null) UserIdPrincipal(claim.asString()) else null
             }
         }
+    }
+}
+
+fun Application.configureEventConsumer() {
+    val eventConsumer by inject<EventConsumer>()
+
+    eventConsumer.start()
+
+    environment.monitor.subscribe(ApplicationStopPreparing) {
+        eventConsumer.stop()
     }
 }
