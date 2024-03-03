@@ -14,6 +14,7 @@ application {
 
 dependencies {
     implementation(projects.infraestructure.api)
+    implementation(projects.infraestructure.events)
     implementation(projects.infraestructure.persistence)
     implementation(projects.infraestructure.remote)
     implementation(projects.application)

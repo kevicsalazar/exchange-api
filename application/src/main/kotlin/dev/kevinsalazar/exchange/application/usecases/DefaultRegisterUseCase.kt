@@ -9,7 +9,7 @@ import dev.kevinsalazar.exchange.domain.payload.request.RegisterRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.SecurityConfig
 import dev.kevinsalazar.exchange.domain.ports.driven.UserRepository
 import dev.kevinsalazar.exchange.domain.ports.driving.RegisterUseCase
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventBus
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventBus
 
 internal class DefaultRegisterUseCase(
     private val userRepository: UserRepository,

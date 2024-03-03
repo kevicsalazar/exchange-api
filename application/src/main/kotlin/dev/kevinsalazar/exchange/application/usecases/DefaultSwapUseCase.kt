@@ -10,7 +10,7 @@ import dev.kevinsalazar.exchange.domain.payload.request.SwapRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.BalanceRepository
 import dev.kevinsalazar.exchange.domain.ports.driven.TransactionRepository
 import dev.kevinsalazar.exchange.domain.ports.driving.SwapUseCase
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventBus
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventBus
 import dev.kevinsalazar.exchange.domain.utils.getTimeStamp
 
 internal class DefaultSwapUseCase(

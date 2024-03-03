@@ -1,9 +1,9 @@
-package dev.kevinsalazar.exchange.application.events
+package dev.kevinsalazar.exchange.infraestructure.events
 
 import dev.kevinsalazar.exchange.domain.events.Event
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventBus
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventConsumer
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventHandler
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventBus
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventConsumer
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

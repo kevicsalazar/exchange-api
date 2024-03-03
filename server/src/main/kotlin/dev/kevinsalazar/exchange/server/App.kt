@@ -7,6 +7,7 @@ import dev.kevinsalazar.exchange.infraestructure.persistence.persistModule
 import dev.kevinsalazar.exchange.infraestructure.remote.remoteModule
 import dev.kevinsalazar.exchange.application.applicationModule
 import dev.kevinsalazar.exchange.infraestructure.api.config.configureEventConsumer
+import dev.kevinsalazar.exchange.infraestructure.events.eventsModule
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
 import org.koin.core.logger.Level
@@ -31,6 +32,7 @@ fun Application.configureKoin() {
         modules(
             appModule,
             apiModule,
+            eventsModule,
             persistModule,
             remoteModule,
             applicationModule,

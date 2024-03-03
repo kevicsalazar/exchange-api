@@ -1,4 +1,4 @@
-package dev.kevinsalazar.exchange.domain.ports.driving.events
+package dev.kevinsalazar.exchange.domain.ports.driven.events
 
 import dev.kevinsalazar.exchange.domain.events.Event
 import kotlin.reflect.KClass

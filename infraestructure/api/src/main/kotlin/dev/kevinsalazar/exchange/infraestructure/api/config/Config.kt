@@ -1,6 +1,6 @@
 package dev.kevinsalazar.exchange.infraestructure.api.config
 
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventConsumer
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventConsumer
 import dev.kevinsalazar.exchange.infraestructure.api.routes.authRoute
 import dev.kevinsalazar.exchange.infraestructure.api.routes.currencyRoute
 import dev.kevinsalazar.exchange.infraestructure.api.routes.exchangeRoute

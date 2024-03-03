@@ -1,13 +1,12 @@
 package dev.kevinsalazar.exchange.application
 
-import dev.kevinsalazar.exchange.application.events.DefaultEventBus
-import dev.kevinsalazar.exchange.application.events.DefaultEventConsumer
 import dev.kevinsalazar.exchange.application.usecases.*
 import dev.kevinsalazar.exchange.domain.ports.driving.*
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventBus
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventConsumer
-import dev.kevinsalazar.exchange.domain.ports.driving.events.EventHandler
-import org.koin.core.module.dsl.*
+import dev.kevinsalazar.exchange.domain.ports.driven.events.EventHandler
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.binds
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 
@@ -32,8 +31,5 @@ val applicationModule = module {
         qualifier<NotificateSwapUseCase>()
         binds(listOf(NotificateSwapUseCase::class, EventHandler::class))
     }
-
-    singleOf(::DefaultEventBus) withOptions { bind<EventBus>() }
-    singleOf(::DefaultEventConsumer) withOptions { bind<EventConsumer>() }
 
 }
