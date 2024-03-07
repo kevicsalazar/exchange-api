@@ -1,11 +1,11 @@
 package dev.kevinsalazar.exchange.infraestructure.persistence.repository
 
-import dev.kevinsalazar.exchange.infraestructure.persistence.tables.UsersTable
-import dev.kevinsalazar.exchange.infraestructure.persistence.utils.dbQuery
 import dev.kevinsalazar.exchange.domain.entities.User
 import dev.kevinsalazar.exchange.domain.payload.request.LoginRequest
 import dev.kevinsalazar.exchange.domain.payload.request.RegisterRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.UserRepository
+import dev.kevinsalazar.exchange.infraestructure.persistence.tables.UsersTable
+import dev.kevinsalazar.exchange.infraestructure.persistence.utils.dbQuery
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.insert
@@ -50,7 +50,16 @@ internal class DefaultUserRepository : UserRepository {
         return dbQuery {
             UsersTable.selectAll()
                 .where { UsersTable.email eq email }
-                .map { User(it[UsersTable.id], it[UsersTable.name], it[UsersTable.email]) }
+                .map(::rowToUser)
+                .singleOrNull()
+        }
+    }
+
+    override suspend fun findById(id: String): User? {
+        return dbQuery {
+            UsersTable.selectAll()
+                .where { UsersTable.id eq id }
+                .map(::rowToUser)
                 .singleOrNull()
         }
     }

@@ -1,5 +1,6 @@
 package dev.kevinsalazar.exchange.domain.enums
 
-enum class Queue {
-    Email
+enum class EmailTemplate {
+    Welcome,
+    Swap
 }

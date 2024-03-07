@@ -9,8 +9,8 @@ import dev.kevinsalazar.exchange.domain.events.SuccessfulSwapEvent
 import dev.kevinsalazar.exchange.domain.payload.request.SwapRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.BalanceRepository
 import dev.kevinsalazar.exchange.domain.ports.driven.TransactionRepository
-import dev.kevinsalazar.exchange.domain.ports.driving.SwapUseCase
 import dev.kevinsalazar.exchange.domain.ports.driven.events.EventBus
+import dev.kevinsalazar.exchange.domain.ports.driving.SwapUseCase
 import dev.kevinsalazar.exchange.domain.utils.getTimeStamp
 
 internal class DefaultSwapUseCase(
@@ -64,7 +64,7 @@ internal class DefaultSwapUseCase(
 
             requireNotNull(savedTransaction) { "Unable to save transaction" }
 
-            publishEvent(userId, savedTransaction.id)
+            publishEvent(savedTransaction.id)
 
             return Result.success(transaction)
 
@@ -78,9 +78,8 @@ internal class DefaultSwapUseCase(
         }
     }
 
-    private suspend fun publishEvent(userId: String, transactionId: String) {
+    private suspend fun publishEvent(transactionId: String) {
         val event = SuccessfulSwapEvent(
-            userId = userId,
             transactionId = transactionId
         )
 

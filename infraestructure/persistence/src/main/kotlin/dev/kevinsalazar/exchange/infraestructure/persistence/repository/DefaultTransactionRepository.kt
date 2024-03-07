@@ -37,6 +37,15 @@ internal class DefaultTransactionRepository : TransactionRepository {
         }
     }
 
+    override suspend fun findById(id: String): Transaction? {
+        return dbQuery {
+            TransactionTable.selectAll()
+                .where { TransactionTable.id eq id }
+                .map(::rowToTransaction)
+                .singleOrNull()
+        }
+    }
+
     private fun rowToTransaction(row: ResultRow): Transaction {
         return Transaction(
             id = row[TransactionTable.id],

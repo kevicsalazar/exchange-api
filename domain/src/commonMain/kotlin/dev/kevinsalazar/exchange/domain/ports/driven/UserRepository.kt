@@ -9,4 +9,5 @@ interface UserRepository {
     suspend fun login(params: LoginRequest): User?
     suspend fun findSaltByEmail(email: String): String?
     suspend fun findByEmail(email: String): User?
+    suspend fun findById(id: String): User?
 }

@@ -5,4 +5,5 @@ import dev.kevinsalazar.exchange.domain.entities.Transaction
 interface TransactionRepository {
     suspend fun save(transaction: Transaction): Transaction?
     suspend fun findAll(userId: String): List<Transaction>
+    suspend fun findById(id: String): Transaction?
 }
