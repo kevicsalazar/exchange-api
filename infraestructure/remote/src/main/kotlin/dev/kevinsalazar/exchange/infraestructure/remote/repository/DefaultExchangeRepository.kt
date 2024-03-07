@@ -1,14 +1,14 @@
 package dev.kevinsalazar.exchange.infraestructure.remote.repository
 
+import dev.kevinsalazar.exchange.domain.entities.Currency
+import dev.kevinsalazar.exchange.domain.ports.driven.ExchangeRepository
+import dev.kevinsalazar.exchange.domain.values.Convertion
 import dev.kevinsalazar.exchange.infraestructure.remote.api.CurrencyApi
 import dev.kevinsalazar.exchange.infraestructure.remote.mapper.CurrencyMapper
-import dev.kevinsalazar.exchange.domain.entities.Convertion
-import dev.kevinsalazar.exchange.domain.entities.Currency
-import dev.kevinsalazar.exchange.domain.ports.driven.CurrenciesRepository
 
-internal class DefaultCurrenciesRepository(
+internal class DefaultExchangeRepository(
     private val api: CurrencyApi
-) : CurrenciesRepository {
+) : ExchangeRepository {
 
     override suspend fun findCrypto(): List<Currency> {
         val response = api.listCrypto()

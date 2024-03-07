@@ -3,7 +3,7 @@ package dev.kevinsalazar.exchange.infraestructure.remote.mapper
 import dev.kevinsalazar.exchange.infraestructure.remote.dto.CryptoConvertion
 import dev.kevinsalazar.exchange.infraestructure.remote.dto.CryptoInfo
 import dev.kevinsalazar.exchange.infraestructure.remote.dto.FiatInfo
-import dev.kevinsalazar.exchange.domain.entities.Convertion
+import dev.kevinsalazar.exchange.domain.values.Convertion
 import dev.kevinsalazar.exchange.domain.entities.Currency
 
 object CurrencyMapper {

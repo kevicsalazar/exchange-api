@@ -1,4 +1,4 @@
-package dev.kevinsalazar.exchange.domain.entities
+package dev.kevinsalazar.exchange.domain.values
 
 import kotlinx.serialization.Serializable
 
