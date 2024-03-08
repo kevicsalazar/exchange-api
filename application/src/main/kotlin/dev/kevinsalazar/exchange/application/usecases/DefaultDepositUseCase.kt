@@ -3,7 +3,6 @@ package dev.kevinsalazar.exchange.application.usecases
 import dev.kevinsalazar.exchange.application.utils.generateUUID
 import dev.kevinsalazar.exchange.domain.entities.Balance
 import dev.kevinsalazar.exchange.domain.entities.Transaction
-import dev.kevinsalazar.exchange.domain.enums.Status
 import dev.kevinsalazar.exchange.domain.payload.request.DepositRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.BalanceRepository
 import dev.kevinsalazar.exchange.domain.ports.driven.TransactionRepository
@@ -16,17 +15,15 @@ class DefaultDepositUseCase(
 ) : DepositUseCase {
 
     override suspend fun execute(userId: String, request: DepositRequest): Result<Transaction> {
-
-        val transaction = Transaction(
-            id = generateUUID(),
-            userId = userId,
-            status = Status.Success,
-            receivedCurrencyCode = request.currencyCode,
-            receivedAmount = request.amount,
-            created = getTimeStamp()
-        )
-
         try {
+
+            val transaction = Transaction(
+                id = generateUUID(),
+                userId = userId,
+                receivedCurrencyCode = request.currencyCode,
+                receivedAmount = request.amount,
+                created = getTimeStamp()
+            )
 
             val recipientBalance = balanceRepository.findBalance(userId, request.currencyCode)
 
@@ -49,11 +46,6 @@ class DefaultDepositUseCase(
 
             return Result.success(transaction)
         } catch (e: Exception) {
-            transactionRepository.save(
-                transaction.copy(
-                    status = Status.Error
-                )
-            )
             return Result.failure(e)
         }
     }

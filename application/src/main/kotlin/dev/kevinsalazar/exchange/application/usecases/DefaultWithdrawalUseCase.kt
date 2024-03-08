@@ -2,7 +2,6 @@ package dev.kevinsalazar.exchange.application.usecases
 
 import dev.kevinsalazar.exchange.application.utils.generateUUID
 import dev.kevinsalazar.exchange.domain.entities.Transaction
-import dev.kevinsalazar.exchange.domain.enums.Status
 import dev.kevinsalazar.exchange.domain.errors.InsufficientFundsException
 import dev.kevinsalazar.exchange.domain.payload.request.WithdrawalRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.BalanceRepository
@@ -16,17 +15,15 @@ class DefaultWithdrawalUseCase(
 ) : WithdrawalUseCase {
 
     override suspend fun execute(userId: String, request: WithdrawalRequest): Result<Transaction> {
-
-        val transaction = Transaction(
-            id = generateUUID(),
-            userId = userId,
-            status = Status.Success,
-            sentCurrencyCode = request.currencyCode,
-            sentAmount = request.amount,
-            created = getTimeStamp()
-        )
-
         try {
+
+            val transaction = Transaction(
+                id = generateUUID(),
+                userId = userId,
+                sentCurrencyCode = request.currencyCode,
+                sentAmount = request.amount,
+                created = getTimeStamp()
+            )
 
             val recipientBalance = balanceRepository.findBalance(userId, request.currencyCode)
 
@@ -47,11 +44,6 @@ class DefaultWithdrawalUseCase(
                 throw InsufficientFundsException()
             }
         } catch (e: Exception) {
-            transactionRepository.save(
-                transaction.copy(
-                    status = Status.Error
-                )
-            )
             return Result.failure(e)
         }
     }

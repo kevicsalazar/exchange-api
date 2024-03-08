@@ -17,7 +17,6 @@ internal class DefaultTransactionRepository : TransactionRepository {
             TransactionTable.insert {
                 it[id] = transaction.id
                 it[userId] = transaction.userId
-                it[status] = transaction.status
                 it[sentCurrencyCode] = transaction.sentCurrencyCode
                 it[sentAmount] = transaction.sentAmount
                 it[receivedCurrencyCode] = transaction.receivedCurrencyCode
@@ -50,7 +49,6 @@ internal class DefaultTransactionRepository : TransactionRepository {
         return Transaction(
             id = row[TransactionTable.id],
             userId = row[TransactionTable.userId],
-            status = row[TransactionTable.status],
             sentCurrencyCode = row[TransactionTable.sentCurrencyCode],
             sentAmount = row[TransactionTable.sentAmount],
             receivedCurrencyCode = row[TransactionTable.receivedCurrencyCode],
