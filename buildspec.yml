@@ -12,6 +12,9 @@ phases:
       - REPOSITORY_URI=891377324743.dkr.ecr.us-east-1.amazonaws.com/exchange-api
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - echo $DB_NAME
+      - echo $JWT_SECRET
+      - echo $API_KEY
 
   build:
     commands:
@@ -22,8 +25,7 @@ phases:
         --build-arg DB_USERNAME=$DB_USERNAME \
         --build-arg DB_PASSWORD=$DB_PASSWORD \
         --build-arg JWT_SECRET=$JWT_SECRET \
-        --build-arg API_KEY=$API_KEY \
-        -t $REPOSITORY_URI .
+        --build-arg API_KEY=$API_KEY -t $REPOSITORY_URI .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
       - docker images
 
