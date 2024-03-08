@@ -21,14 +21,14 @@ class DefaultDepositUseCase(
             id = generateUUID(),
             userId = userId,
             status = Status.Success,
-            receivedCurrencyId = request.currencyId,
+            receivedCurrencyCode = request.currencyCode,
             receivedAmount = request.amount,
             created = getTimeStamp()
         )
 
         try {
 
-            val recipientBalance = balanceRepository.findBalance(userId, request.currencyId)
+            val recipientBalance = balanceRepository.findBalance(userId, request.currencyCode)
 
             val recipientNewBalance = recipientBalance?.let {
                 it.copy(
@@ -38,7 +38,7 @@ class DefaultDepositUseCase(
                 id = generateUUID(),
                 userId = userId,
                 amount = request.amount,
-                currencyId = request.currencyId
+                currencyCode = request.currencyCode
             )
 
             balanceRepository.updateBalance(recipientNewBalance)

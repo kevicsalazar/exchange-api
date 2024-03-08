@@ -4,9 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Currency(
-    val id: Int,
-    val rank: Int? = null,
+    val code: String,
     val name: String,
-    val symbol: String,
-    val sign: String? = null
+    val locale: String,
 )

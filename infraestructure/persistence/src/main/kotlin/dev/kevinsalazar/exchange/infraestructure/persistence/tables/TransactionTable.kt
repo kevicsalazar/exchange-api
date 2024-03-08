@@ -8,9 +8,9 @@ object TransactionTable : Table(name = "transactions") {
     val id = varchar("id", length = 36)
     val userId = reference("user_id", UsersTable.id)
     val status = enumeration<Status>("status")
-    val sentCurrencyId = integer("sent_currency_id").nullable()
+    val sentCurrencyCode = reference("sent_currency_code", CurrencyTable.code).nullable()
     val sentAmount = float("sent_amount").nullable()
-    val receivedCurrencyId = integer("received_currency_id").nullable()
+    val receivedCurrencyCode = reference("sent_currency_code", CurrencyTable.code).nullable()
     val receivedAmount = float("received_amount").nullable()
     val created = timestamp("timestamp")
 

@@ -9,22 +9,18 @@ import org.jetbrains.exposed.sql.batchUpsert
 import org.jetbrains.exposed.sql.selectAll
 
 class DefaultCurrencyRepository : CurrencyRepository {
-    override suspend fun save(currencies: Set<Currency>) {
+
+    override suspend fun findAll(): List<Currency> {
         return dbQuery {
-            CurrencyTable.batchUpsert(currencies) {
-                this[CurrencyTable.id] = it.id
-                this[CurrencyTable.rank] = it.rank
-                this[CurrencyTable.name] = it.name
-                this[CurrencyTable.sign] = it.sign
-                this[CurrencyTable.symbol] = it.symbol
-            }
+            CurrencyTable.selectAll()
+                .map(::rowToCurrency)
         }
     }
 
-    override suspend fun findById(id: Int): Currency? {
+    override suspend fun findByCode(code: String): Currency? {
         return dbQuery {
             CurrencyTable.selectAll()
-                .where { CurrencyTable.id eq id }
+                .where { CurrencyTable.code eq code }
                 .map(::rowToCurrency)
                 .singleOrNull()
         }
@@ -32,11 +28,19 @@ class DefaultCurrencyRepository : CurrencyRepository {
 
     private fun rowToCurrency(row: ResultRow): Currency {
         return Currency(
-            id = row[CurrencyTable.id],
-            rank = row[CurrencyTable.rank],
+            code = row[CurrencyTable.code],
             name = row[CurrencyTable.name],
-            symbol = row[CurrencyTable.symbol],
-            sign = row[CurrencyTable.sign],
+            locale = row[CurrencyTable.locale]
         )
+    }
+
+    override suspend fun save(currencies: List<Currency>) {
+        return dbQuery {
+            CurrencyTable.batchUpsert(currencies) {
+                this[CurrencyTable.code] = it.code
+                this[CurrencyTable.name] = it.name
+                this[CurrencyTable.locale] = it.locale
+            }
+        }
     }
 }

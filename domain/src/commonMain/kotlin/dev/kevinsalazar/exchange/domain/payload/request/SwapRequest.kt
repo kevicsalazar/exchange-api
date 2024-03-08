@@ -9,7 +9,7 @@ data class SwapRequest(
 ) {
     @Serializable
     data class Item(
-        val currencyId: Int,
+        val currencyCode: String,
         val amount: Float,
     )
 }

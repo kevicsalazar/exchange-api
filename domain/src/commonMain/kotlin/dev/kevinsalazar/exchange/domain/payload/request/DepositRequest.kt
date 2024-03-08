@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DepositRequest(
-    val currencyId: Int,
+    val currencyCode: String,
     val amount: Float
 )

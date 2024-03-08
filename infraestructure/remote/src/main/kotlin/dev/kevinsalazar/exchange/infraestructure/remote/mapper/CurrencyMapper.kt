@@ -1,34 +1,9 @@
 package dev.kevinsalazar.exchange.infraestructure.remote.mapper
 
-import dev.kevinsalazar.exchange.infraestructure.remote.dto.CryptoConvertion
-import dev.kevinsalazar.exchange.infraestructure.remote.dto.CryptoInfo
-import dev.kevinsalazar.exchange.infraestructure.remote.dto.FiatInfo
 import dev.kevinsalazar.exchange.domain.values.Convertion
-import dev.kevinsalazar.exchange.domain.entities.Currency
+import dev.kevinsalazar.exchange.infraestructure.remote.dto.CryptoConvertion
 
 object CurrencyMapper {
-
-    fun mapCrypto(data: List<CryptoInfo>): List<Currency> {
-        return data.map {
-            Currency(
-                id = it.id,
-                rank = it.rank,
-                name = it.name,
-                symbol = it.symbol,
-            )
-        }
-    }
-
-    fun mapFiat(data: List<FiatInfo>): List<Currency> {
-        return data.map {
-            Currency(
-                id = it.id,
-                sign = it.sign,
-                name = it.name,
-                symbol = it.symbol,
-            )
-        }
-    }
 
     fun mapToConvertion(data: CryptoConvertion): Convertion {
 

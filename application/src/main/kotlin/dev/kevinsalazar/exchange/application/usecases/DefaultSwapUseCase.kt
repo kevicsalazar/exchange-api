@@ -25,15 +25,15 @@ internal class DefaultSwapUseCase(
             id = generateUUID(),
             userId = userId,
             status = Status.Success,
-            sentCurrencyId = request.send.currencyId,
+            sentCurrencyCode = request.send.currencyCode,
             sentAmount = request.send.amount,
-            receivedCurrencyId = request.receive.currencyId,
+            receivedCurrencyCode = request.receive.currencyCode,
             receivedAmount = request.receive.amount,
             created = getTimeStamp()
         )
 
         try {
-            val senderBalance = balanceRepository.findBalance(userId, request.send.currencyId)
+            val senderBalance = balanceRepository.findBalance(userId, request.send.currencyCode)
 
             if (senderBalance == null || senderBalance.amount < request.send.amount) {
                 throw InsufficientFundsException()
@@ -45,7 +45,7 @@ internal class DefaultSwapUseCase(
 
             balanceRepository.updateBalance(senderNewBalance)
 
-            val recipientBalance = balanceRepository.findBalance(userId, request.receive.currencyId)
+            val recipientBalance = balanceRepository.findBalance(userId, request.receive.currencyCode)
 
             val recipientNewBalance = recipientBalance?.let {
                 it.copy(
@@ -55,7 +55,7 @@ internal class DefaultSwapUseCase(
                 id = generateUUID(),
                 userId = userId,
                 amount = request.receive.amount,
-                currencyId = request.receive.currencyId
+                currencyCode = request.receive.currencyCode
             )
 
             balanceRepository.updateBalance(recipientNewBalance)

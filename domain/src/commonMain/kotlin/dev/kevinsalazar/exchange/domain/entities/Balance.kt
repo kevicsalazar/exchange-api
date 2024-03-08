@@ -7,5 +7,5 @@ data class Balance(
     val id: String,
     val userId: String,
     val amount: Float,
-    val currencyId: Int
+    val currencyCode: String
 )

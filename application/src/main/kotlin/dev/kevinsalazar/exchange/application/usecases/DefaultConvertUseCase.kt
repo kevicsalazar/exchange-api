@@ -7,7 +7,7 @@ import dev.kevinsalazar.exchange.domain.ports.driving.ConvertUseCase
 class DefaultConvertUseCase(
     private val exchangeRepository: ExchangeRepository
 ) : ConvertUseCase {
-    override suspend fun execute(amount: Float, from: Int, to: Int): Result<Convertion> {
+    override suspend fun execute(amount: Float, from: String, to: String): Result<Convertion> {
         try {
             val data = exchangeRepository.convert(amount, from, to)
             return Result.success(data)

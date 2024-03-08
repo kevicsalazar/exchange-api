@@ -6,7 +6,7 @@ object BalanceTable : Table(name = "balances") {
     val id = varchar("id", length = 36)
     val userId = reference("user_id", UsersTable.id)
     val amount = float("amount")
-    val currencyId = integer("sent_currency_id")
+    val currencyCode = reference("currency_code", CurrencyTable.code)
 
     override val primaryKey = PrimaryKey(id)
 }

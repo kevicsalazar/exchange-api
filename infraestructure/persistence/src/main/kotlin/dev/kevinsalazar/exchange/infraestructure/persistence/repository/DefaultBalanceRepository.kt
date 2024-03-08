@@ -11,11 +11,11 @@ import org.jetbrains.exposed.sql.upsert
 
 internal class DefaultBalanceRepository : BalanceRepository {
 
-    override suspend fun findBalance(userId: String, currencyId: Int): Balance? {
+    override suspend fun findBalance(userId: String, currencyCode: String): Balance? {
         return dbQuery {
             BalanceTable.selectAll()
                 .where { BalanceTable.userId eq userId }
-                .andWhere { BalanceTable.currencyId eq currencyId }
+                .andWhere { BalanceTable.currencyCode eq currencyCode }
                 .map(::rowToBalance)
                 .singleOrNull()
         }
@@ -34,7 +34,7 @@ internal class DefaultBalanceRepository : BalanceRepository {
             BalanceTable.upsert {
                 it[id] = balance.id
                 it[userId] = balance.userId
-                it[currencyId] = balance.currencyId
+                it[currencyCode] = balance.currencyCode
                 it[amount] = balance.amount
             }
         }
@@ -45,7 +45,7 @@ internal class DefaultBalanceRepository : BalanceRepository {
             id = row[BalanceTable.id],
             userId = row[BalanceTable.userId],
             amount = row[BalanceTable.amount],
-            currencyId = row[BalanceTable.currencyId]
+            currencyCode = row[BalanceTable.currencyCode]
         )
     }
 

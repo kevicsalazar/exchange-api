@@ -1,0 +1,32 @@
+[
+  {
+    "code": "USD",
+    "name": "US Dollar",
+    "locale": "en_US"
+  },
+  {
+    "code": "EUR",
+    "name": "Euro",
+    "locale": "fr_FR"
+  },
+  {
+    "code": "PEN",
+    "name": "Peruvian Sol",
+    "locale": "es_PE"
+  },
+  {
+    "code": "BTC",
+    "name": "Bitcoin",
+    "locale": "en_US"
+  },
+  {
+    "code": "ETH",
+    "name": "Ethereum",
+    "locale": "en_US"
+  },
+  {
+    "code": "ADA",
+    "name": "Cardano",
+    "locale": "en_US"
+  }
+]

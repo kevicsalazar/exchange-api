@@ -18,9 +18,9 @@ internal class DefaultTransactionRepository : TransactionRepository {
                 it[id] = transaction.id
                 it[userId] = transaction.userId
                 it[status] = transaction.status
-                it[sentCurrencyId] = transaction.sentCurrencyId
+                it[sentCurrencyCode] = transaction.sentCurrencyCode
                 it[sentAmount] = transaction.sentAmount
-                it[receivedCurrencyId] = transaction.receivedCurrencyId
+                it[receivedCurrencyCode] = transaction.receivedCurrencyCode
                 it[receivedAmount] = transaction.receivedAmount
                 it[created] = stringToInstant(transaction.created)
             }.resultedValues
@@ -51,9 +51,9 @@ internal class DefaultTransactionRepository : TransactionRepository {
             id = row[TransactionTable.id],
             userId = row[TransactionTable.userId],
             status = row[TransactionTable.status],
-            sentCurrencyId = row[TransactionTable.sentCurrencyId],
+            sentCurrencyCode = row[TransactionTable.sentCurrencyCode],
             sentAmount = row[TransactionTable.sentAmount],
-            receivedCurrencyId = row[TransactionTable.receivedCurrencyId],
+            receivedCurrencyCode = row[TransactionTable.receivedCurrencyCode],
             receivedAmount = row[TransactionTable.receivedAmount],
             created = instantToString(row[TransactionTable.created])
         )

@@ -21,14 +21,14 @@ class DefaultWithdrawalUseCase(
             id = generateUUID(),
             userId = userId,
             status = Status.Success,
-            sentCurrencyId = request.currencyId,
+            sentCurrencyCode = request.currencyCode,
             sentAmount = request.amount,
             created = getTimeStamp()
         )
 
         try {
 
-            val recipientBalance = balanceRepository.findBalance(userId, request.currencyId)
+            val recipientBalance = balanceRepository.findBalance(userId, request.currencyCode)
 
             if (recipientBalance != null && recipientBalance.amount >= request.amount) {
 
