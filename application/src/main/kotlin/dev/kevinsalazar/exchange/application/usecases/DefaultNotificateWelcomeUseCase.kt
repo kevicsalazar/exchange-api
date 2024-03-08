@@ -1,7 +1,6 @@
 package dev.kevinsalazar.exchange.application.usecases
 
 import dev.kevinsalazar.exchange.domain.entities.User
-import dev.kevinsalazar.exchange.domain.enums.EmailTemplate
 import dev.kevinsalazar.exchange.domain.enums.Queue
 import dev.kevinsalazar.exchange.domain.events.EmailEvent
 import dev.kevinsalazar.exchange.domain.events.UserRegisteredEvent
@@ -29,10 +28,10 @@ class DefaultNotificateWelcomeUseCase(
             name = user.name
         )
         val event = EmailEvent(
-            template = EmailTemplate.Welcome.name,
+            template = WelcomeEmail.TEMPLATE,
             destination = user.email,
             data = Json.encodeToString(data)
         )
-        eventBus.publish(event, Queue.Email)
+        eventBus.publish(event, Queue.NotificationEmail)
     }
 }

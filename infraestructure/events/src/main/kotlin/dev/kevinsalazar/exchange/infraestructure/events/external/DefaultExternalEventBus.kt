@@ -25,15 +25,16 @@ class DefaultExternalEventBus(
 
     override suspend fun publish(event: Event, queue: Queue) {
 
+        val body = json.encodeToString(event)
+
         val sendRequest = SendMessageRequest {
-            queueUrl = queues[queue.name]
-            messageBody = json.encodeToString(event)
+            queueUrl = queues[queue.queue]
+            messageBody = body
             delaySeconds = 10
         }
 
         SqsClient { region = props.region }.use { client ->
             client.sendMessage(sendRequest)
-            println("A message was successfully sent.")
         }
     }
 }

@@ -7,4 +7,8 @@ data class SwapEmail(
     val name: String,
     val sentAmount: String,
     val receivedAmount: String
-)
+) {
+    companion object {
+        const val TEMPLATE = "Swap"
+    }
+}

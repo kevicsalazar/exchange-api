@@ -8,7 +8,7 @@ object TransactionTable : Table(name = "transactions") {
     val userId = reference("user_id", UsersTable.id)
     val sentCurrencyCode = reference("sent_currency_code", CurrencyTable.code).nullable()
     val sentAmount = float("sent_amount").nullable()
-    val receivedCurrencyCode = reference("sent_currency_code", CurrencyTable.code).nullable()
+    val receivedCurrencyCode = reference("received_currency_code", CurrencyTable.code).nullable()
     val receivedAmount = float("received_amount").nullable()
     val created = timestamp("timestamp")
 
