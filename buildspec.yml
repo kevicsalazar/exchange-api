@@ -20,7 +20,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build --build-arg DB_URL=$DB_URL \
+      - docker buildx build --build-arg DB_URL=$DB_URL \
         --build-arg DB_NAME=$DB_NAME \
         --build-arg DB_USERNAME=$DB_USERNAME \
         --build-arg DB_PASSWORD=$DB_PASSWORD \
