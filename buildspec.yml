@@ -27,15 +27,12 @@ phases:
         --build-arg DB_PASSWORD=$DB_PASSWORD \
         --build-arg JWT_SECRET=$JWT_SECRET \
         --build-arg API_KEY=$API_KEY \
-        -t $REPOSITORY_URI .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
-      - docker images
+        -t $REPOSITORY_URI$IMAGE_TAG .
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image to Amazon ECR...
-      - docker images
       - docker push $REPOSITORY_URI:$IMAGE_TAG
 
 artifacts:
