@@ -20,8 +20,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build --build-arg DB_URL=$DB_URL --build-arg DB_NAME=$DB_NAME --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg JWT_SECRET=$JWT_SECRET --build-arg API_KEY=$API_KEY -t $REPOSITORY_URI$IMAGE_TAG .
-      - docker images
+      - docker build --build-arg DB_URL=$DB_URL --build-arg DB_NAME=$DB_NAME --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg JWT_SECRET=$JWT_SECRET --build-arg API_KEY=$API_KEY -t $REPOSITORY_URI:$IMAGE_TAG .
 
   post_build:
     commands:
