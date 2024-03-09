@@ -9,6 +9,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - REPOSITORY_URI=891377324743.dkr.ecr.us-east-1.amazonaws.com/exchange-api
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
@@ -20,7 +21,8 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build --build-arg DB_URL=$DB_URL --build-arg DB_NAME=$DB_NAME --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg JWT_SECRET=$JWT_SECRET --build-arg API_KEY=$API_KEY -t $REPOSITORY_URI:$IMAGE_TAG .
+      - docker build --build-arg DB_URL=$DB_URL --build-arg DB_NAME=$DB_NAME --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg JWT_SECRET=$JWT_SECRET --build-arg API_KEY=$API_KEY -t $REPOSITORY_URI .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
 
   post_build:
     commands:
@@ -29,4 +31,4 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
 
 artifacts:
-  files: []
+  files: [ ]
