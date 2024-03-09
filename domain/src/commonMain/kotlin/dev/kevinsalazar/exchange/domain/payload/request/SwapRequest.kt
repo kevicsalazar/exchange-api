@@ -10,6 +10,6 @@ data class SwapRequest(
     @Serializable
     data class Item(
         val currencyCode: String,
-        val amount: Float,
+        val amount: Double,
     )
 }

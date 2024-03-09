@@ -19,15 +19,15 @@ internal fun Route.currencyRoute() {
         }
         get("/convert") {
 
-            val amount = call.request.queryParameters["amount"]?.toFloat()
-            val from = call.request.queryParameters["from"]
-            val to = call.request.queryParameters["to"]
+            val amount = call.request.queryParameters["amount"]?.toDouble()
+            val send = call.request.queryParameters["send"]
+            val receive = call.request.queryParameters["receive"]
 
             requireNotNull(amount) { "amount is required" }
-            requireNotNull(from) { "from is required" }
-            requireNotNull(to) { "to is required" }
+            requireNotNull(send) { "send is required" }
+            requireNotNull(receive) { "receive is required" }
 
-            val result = convertUseCase.execute(amount, from, to)
+            val result = convertUseCase.execute(amount, send, receive)
             call.respond(result = result)
         }
     }

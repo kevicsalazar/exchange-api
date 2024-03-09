@@ -7,8 +7,8 @@ data class Transaction(
     val id: String,
     val userId: String,
     val sentCurrencyCode: String? = null,
-    val sentAmount: Float? = null,
+    val sentAmount: Double? = null,
     val receivedCurrencyCode: String? = null,
-    val receivedAmount: Float? = null,
+    val receivedAmount: Double? = null,
     val created: String
 )

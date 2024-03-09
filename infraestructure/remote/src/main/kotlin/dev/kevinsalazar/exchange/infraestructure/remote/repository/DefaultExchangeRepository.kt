@@ -9,8 +9,8 @@ internal class DefaultExchangeRepository(
     private val api: CurrencyApi
 ) : ExchangeRepository {
 
-    override suspend fun convert(amount: Float, from: String, to: String): Convertion {
-        val response = api.convert(amount, from, to)
-        return CurrencyMapper.mapToConvertion(response)
+    override suspend fun convert(amount: Double, send: String, receive: String): List<Convertion> {
+        return api.convert(amount, send, receive)
+            .flatMap(CurrencyMapper::mapToConvertion)
     }
 }
