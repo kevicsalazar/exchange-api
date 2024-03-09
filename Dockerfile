@@ -1,4 +1,4 @@
-FROM gradle:8.4-jdk21-alpine AS build
+FROM gradle:8.4-jdk21 AS build
 COPY --chown=gradle:gradle . /appBuild
 WORKDIR /appBuild
 RUN gradle buildFatJar --no-daemon
