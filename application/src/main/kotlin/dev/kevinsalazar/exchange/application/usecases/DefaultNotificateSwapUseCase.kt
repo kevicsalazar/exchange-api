@@ -54,7 +54,7 @@ class DefaultNotificateSwapUseCase(
         eventBus.publish(event, Queue.NotificationEmail)
     }
 
-    private fun formatAmount(code: String, amount: Float): String {
+    private fun formatAmount(code: String, amount: Double): String {
 
         val numberFormat = NumberFormat.getCurrencyInstance(Locale.US)
         val formattedAmount = numberFormat.format(amount)

@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class Balance(
     val id: String,
     val userId: String,
-    val amount: Float,
+    val amount: Double,
     val currencyCode: String
 )
