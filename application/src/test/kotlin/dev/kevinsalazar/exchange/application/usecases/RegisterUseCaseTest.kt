@@ -39,7 +39,7 @@ class RegisterUseCaseTest : StringSpec() {
 
             result.isSuccess shouldBe true
             requireNotNull(result.getOrNull()).apply {
-                name shouldBe "Kevin_"
+                name shouldBe "Kevin"
                 email shouldBe "kevin@google.com"
                 authToken shouldBe "token"
             }
