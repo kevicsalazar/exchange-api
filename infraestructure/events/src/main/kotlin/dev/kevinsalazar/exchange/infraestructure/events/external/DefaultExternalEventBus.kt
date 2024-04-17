@@ -1,9 +1,9 @@
 package dev.kevinsalazar.exchange.infraestructure.events.external
 
-import aws.sdk.kotlin.services.sqs.SqsClient
-import aws.sdk.kotlin.services.sqs.model.SendMessageRequest
-import dev.kevinsalazar.exchange.domain.enums.Queue
-import dev.kevinsalazar.exchange.domain.events.Event
+import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
+import aws.sdk.kotlin.services.eventbridge.model.PutEventsRequest
+import aws.sdk.kotlin.services.eventbridge.model.PutEventsRequestEntry
+import dev.kevinsalazar.exchange.domain.events.ExternalEvent
 import dev.kevinsalazar.exchange.domain.ports.driven.ConfigProperties
 import dev.kevinsalazar.exchange.domain.ports.driven.events.ExternalEventBus
 import kotlinx.serialization.encodeToString
@@ -13,28 +13,28 @@ class DefaultExternalEventBus(
     private val props: ConfigProperties.Events
 ) : ExternalEventBus {
 
-    private val queues by lazy {
-        props.queues.associateBy({ it.name }, { it.url })
-    }
-
     private val json = Json {
         isLenient = true
         ignoreUnknownKeys = true
         encodeDefaults = false
     }
 
-    override suspend fun publish(event: Event, queue: Queue) {
+    override suspend fun publish(event: ExternalEvent) {
 
         val body = json.encodeToString(event)
 
-        val sendRequest = SendMessageRequest {
-            queueUrl = queues[queue.queue]
-            messageBody = body
-            delaySeconds = 10
+        val entry = PutEventsRequestEntry {
+            source = props.source
+            detail = body
+            detailType = event.javaClass.simpleName
         }
 
-        SqsClient { region = props.region }.use { client ->
-            client.sendMessage(sendRequest)
+        val eventsRequest = PutEventsRequest {
+            entries = listOf(entry)
+        }
+
+        EventBridgeClient { region = props.region }.use { client ->
+            client.putEvents(eventsRequest)
         }
     }
 }

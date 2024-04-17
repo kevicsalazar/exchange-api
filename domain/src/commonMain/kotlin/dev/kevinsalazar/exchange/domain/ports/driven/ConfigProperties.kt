@@ -19,12 +19,7 @@ sealed interface ConfigProperties {
     }
 
     interface Events : ConfigProperties {
-        val queues: List<Queue>
         val region: String
-
-        data class Queue(
-            val name: String,
-            val url: String
-        )
+        val source: String
     }
 }

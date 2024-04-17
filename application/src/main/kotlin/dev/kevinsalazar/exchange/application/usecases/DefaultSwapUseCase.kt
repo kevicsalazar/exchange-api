@@ -61,7 +61,7 @@ internal class DefaultSwapUseCase(
 
             requireNotNull(savedTransaction) { "Unable to save transaction" }
 
-            publishEvent(savedTransaction.id)
+            publishEvent(savedTransaction)
 
             return Result.success(transaction)
 
@@ -70,11 +70,16 @@ internal class DefaultSwapUseCase(
         }
     }
 
-    private suspend fun publishEvent(transactionId: String) {
+    private suspend fun publishEvent(transaction: Transaction) {
         val event = SuccessfulSwapEvent(
-            transactionId = transactionId
+            transactionId = transaction.id,
+            userId = transaction.userId,
+            sentCurrencyCode = transaction.sentCurrencyCode,
+            sentAmount = transaction.sentAmount,
+            receivedCurrencyCode = transaction.receivedCurrencyCode,
+            receivedAmount = transaction.receivedAmount,
+            created = transaction.created
         )
-
         eventBus.publish(event)
     }
 

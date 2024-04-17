@@ -4,7 +4,6 @@ kotlin = "1.9.21"
 ktor = "2.3.7"
 logback = "1.4.14"
 koin = "3.5.3"
-sqldelight = "2.0.1"
 kotlinx-serialization-json = "1.5.1"
 postgres = "42.7.1"
 exposed = "0.46.0"
@@ -66,7 +65,7 @@ kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref 
 mockative = { module = "io.mockative:mockative", version.ref = "mockative" }
 mockative-processor = { module = "io.mockative:mockative-processor", version.ref = "mockative" }
 
-aws-sqs = { module = "aws.sdk.kotlin:sqs", version.ref = "aws-sdk" }
+aws-eventbridge = { module = "aws.sdk.kotlin:eventbridge", version.ref = "aws-sdk" }
 aws-secretsmanager = { module = "aws.sdk.kotlin:secretsmanager", version.ref = "aws-sdk" }
 aws-okhttp = { module = "aws.smithy.kotlin:http-client-engine-okhttp", version.ref = "aws-smithy" }
 aws-crt = { module = "aws.smithy.kotlin:http-client-engine-crt", version.ref = "aws-smithy" }
