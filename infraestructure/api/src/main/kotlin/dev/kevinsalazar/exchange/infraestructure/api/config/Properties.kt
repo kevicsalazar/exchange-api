@@ -31,13 +31,7 @@ class RemoteConfigProperties(
 class EventsConfigProperties(
     env: ApplicationEnvironment
 ) : ConfigProperties.Events {
-
-    override val queues = env.getConfigList("events.queues").map {
-        ConfigProperties.Events.Queue(
-            name = it.getConfigProperty("name"),
-            url = it.getConfigProperty("url"),
-        )
-    }
+    override val source = env.getConfigProperty("events.source")
     override val region = env.getConfigProperty("events.region")
 }
 

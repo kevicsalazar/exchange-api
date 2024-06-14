@@ -8,8 +8,8 @@ import dev.kevinsalazar.exchange.domain.events.UserRegisteredEvent
 import dev.kevinsalazar.exchange.domain.payload.request.RegisterRequest
 import dev.kevinsalazar.exchange.domain.ports.driven.SecurityConfig
 import dev.kevinsalazar.exchange.domain.ports.driven.UserRepository
-import dev.kevinsalazar.exchange.domain.ports.driving.RegisterUseCase
 import dev.kevinsalazar.exchange.domain.ports.driven.events.EventBus
+import dev.kevinsalazar.exchange.domain.ports.driving.RegisterUseCase
 
 internal class DefaultRegisterUseCase(
     private val userRepository: UserRepository,
@@ -34,7 +34,7 @@ internal class DefaultRegisterUseCase(
 
             user.authToken = securityConfig.createToken(user.id)
 
-            publishEvent(user.id, user.email)
+            publishEvent(user)
 
             return Result.success(user)
         } catch (e: Exception) {
@@ -42,12 +42,12 @@ internal class DefaultRegisterUseCase(
         }
     }
 
-    private suspend fun publishEvent(userId: String, email: String) {
+    private suspend fun publishEvent(user: User) {
         val event = UserRegisteredEvent(
-            userId = userId,
-            email = email
+            userId = user.id,
+            name = user.name,
+            email = user.email
         )
-
         eventBus.publish(event)
     }
 }

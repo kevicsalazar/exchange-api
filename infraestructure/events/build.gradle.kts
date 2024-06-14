@@ -9,7 +9,7 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.aws.sqs)
+    implementation(libs.aws.eventbridge)
     implementation(libs.aws.secretsmanager)
     implementation(libs.aws.okhttp)
     implementation(libs.aws.crt)

@@ -1,4 +1,4 @@
-rootProject.name = "exchange-server"
+rootProject.name = "exchange-api"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -19,11 +19,10 @@ dependencyResolutionManagement {
     }
 }
 
-include(":server")
-include(":domain")
-include(":application")
-include(":infraestructure:api")
-include(":infraestructure:persistence")
-include(":infraestructure:remote")
+include("server")
+include("domain")
+include("application")
+include("infraestructure:api")
+include("infraestructure:persistence")
+include("infraestructure:remote")
 include("infraestructure:events")
-findProject(":infraestructure:events")?.name = "events"
