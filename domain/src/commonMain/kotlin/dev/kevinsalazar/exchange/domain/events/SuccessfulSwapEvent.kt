@@ -1,5 +1,8 @@
 package dev.kevinsalazar.exchange.domain.events
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SuccessfulSwapEvent(
     val transactionId: String,
     val userId: String,
